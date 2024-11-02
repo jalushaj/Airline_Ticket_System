@@ -1,46 +1,63 @@
-<html> 
-    <head>
-        <title>Manage Airline</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    </head>
+<html>
 
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="index.html">Airline Ticket System</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="manage.html">Manage Airline</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="destinations.html">Manage Destinations</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="tickets.html">Book a Ticket</a>
-                        </li>
-                    </ul>
+<head>
+    <title>Manage Airline</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Airline Ticket System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="manage.html">Manage Airline</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="destinations.html">Manage Destinations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tickets.html">Book a Ticket</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <div class="container mt-5">
+        <h2 class="text-center">Manage Airlines</h2>
+        <form id="airlineForm" class="mt-4">
+            <div class="mb-3">
+                <div class="col">
+                    <label class="airlineLabel">Airline name</label><br>
+                    <input type="text" class="form-control" aria-label="airlineName" required>
                 </div>
             </div>
-        </nav>
-        <h2>Manage Airlines</h2>
-        <form>
-            <div>
-            <label>Airline name</label>
-            <input type="text" name="airline">
-            </div>
-            <button type="submit">Add Airline</button>
+            <button type="button" class="btn btn-primary">Add Airline</button>
         </form>
 
-        <h3>Arilines List</h3>
-        <table > 
-           <th>#</th> 
-           <th>Airline Name</th> 
-           <th>Actions</th> 
-        </table>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
+
+        <h3>Airlines List</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Airline Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
 </html>
