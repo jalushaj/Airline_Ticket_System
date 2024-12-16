@@ -3,10 +3,10 @@ let pendingBooking = null;
 // Load available destinations based on selected date
 const loadDestinationsForDate = (event) => {
     event.preventDefault();
-    const selectedDate = document.getElementById('flightDate').value;
+    const selectedDate = $('#flightDate').val();
     const destinations = JSON.parse(localStorage.getItem('destinations')) || [];
-    const destinationSelect = document.getElementById('destination');
-    destinationSelect.innerHTML = '';
+    const $destinationSelect = $('#destination');
+    $destinationSelect.empty();
 
     // Filter destinations for the selected date
     const filteredDestinations = destinations.filter(dest => dest.date === selectedDate);
@@ -19,20 +19,17 @@ const loadDestinationsForDate = (event) => {
 
     // Populate destination options
     filteredDestinations.forEach((destination, index) => {
-        const option = document.createElement('option');
-        option.text = `${destination.city} (${destination.airline}) - $${destination.price}, ${destination.travelTime} hrs`;
-        option.value = index;  // Set value to index to uniquely identify
-        destinationSelect.add(option);
+        const option = new Option(`${destination.city} (${destination.airline}) - $${destination.price}, ${destination.travelTime} hrs`, index);
+        $destinationSelect.append(option);
     });
 
-    // Show booking form
-    document.getElementById('bookingForm').classList.remove('d-none');
+    $('#bookingForm').removeClass('d-none');
 };
 
 // Show appropriate modal based on flight price
 const showAppropriateModal = () => {
-    const passengerName = document.getElementById('passengerName').value;
-    const selectedDestinationIndex = document.getElementById('destination').value;
+    const passengerName = $('#passengerName').val();
+    const selectedDestinationIndex = $('#destination').val();
     const destinations = JSON.parse(localStorage.getItem('destinations')) || [];
 
     // Check if a destination was selected
@@ -50,51 +47,45 @@ const showAppropriateModal = () => {
         return;
     }
 
-    // Store pending booking data
+
     pendingBooking = { passengerName, destination: selectedDestination };
 
-    // Show the appropriate modal
+
     if (pendingBooking.destination.price > 500) {
-        const highPriceModal = new bootstrap.Modal(document.getElementById('highPriceModal'));
-        highPriceModal.show();
+        $('#highPriceModal').modal('show');
     } else {
-        const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
-        confirmationModal.show();
+        $('#confirmationModal').modal('show');
     }
 };
 
-// Confirm and add booking to localStorage
+// Add booking to localStorage
 const confirmBooking = () => {
     const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
     bookings.push({ passengerName: pendingBooking.passengerName, destination: pendingBooking.destination });
     localStorage.setItem('bookings', JSON.stringify(bookings));
 
-    // Reset form and reload bookings
-    document.getElementById('passengerName').value = '';
+    $('#passengerName').val('');
     loadBookings();
 
-    // Close confirmation modal
-    const confirmationModal = bootstrap.Modal.getInstance(document.getElementById('confirmationModal'));
-    confirmationModal.hide();
+    
+    $('#confirmationModal').modal('hide');
 };
 
 // Confirm high-price booking and proceed
 const confirmHighPriceBooking = () => {
     confirmBooking();
 
-    // Close high price modal
-    const highPriceModal = bootstrap.Modal.getInstance(document.getElementById('highPriceModal'));
-    highPriceModal.hide();
+    $('#highPriceModal').modal('hide');
 };
 
 // Load bookings from localStorage and display in the table
 const loadBookings = () => {
     const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
-    const bookingsList = document.getElementById('bookingsList');
-    bookingsList.innerHTML = '';
+    const $bookingsList = $('#bookingsList');
+    $bookingsList.empty();
 
     bookings.forEach((booking, index) => {
-        bookingsList.innerHTML += `
+        $bookingsList.append(`
             <tr>
                 <td>${index + 1}</td>
                 <td>${booking.passengerName}</td>
@@ -105,7 +96,7 @@ const loadBookings = () => {
                     <button class="btn btn-sm btn-danger" onclick="deleteBooking(${index})">Delete</button>
                 </td>
             </tr>
-        `;
+        `);
     });
 };
 
@@ -117,10 +108,7 @@ const deleteBooking = (index) => {
     loadBookings();
 };
 
-// Initialize page by setting up event listeners
-document.getElementById('dateForm').addEventListener('submit', loadDestinationsForDate);
-document.getElementById('confirmBooking').addEventListener('click', confirmBooking);
-document.getElementById('confirmHighPriceBooking').addEventListener('click', confirmHighPriceBooking);
-
-// Load bookings when the page loads
+$('#dateForm').on('submit', loadDestinationsForDate);
+$('#confirmBooking').on('click', confirmBooking);
+$('#confirmHighPriceBooking').on('click', confirmHighPriceBooking);
 loadBookings();
